@@ -15,6 +15,7 @@ dependencies:
   sqflite_common: ^2.5.5
   sqflite_common_ffi: ^2.3.5
   squadron: ^7.1.1
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:

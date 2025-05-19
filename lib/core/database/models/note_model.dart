@@ -1,23 +1,28 @@
 class NoteModel {
-  final int? id;
+  final String uuid;
   final String title;
-  final String content;
+  final String categoryUuid; // folder reference
 
-  NoteModel({this.id, required this.title, required this.content});
+  NoteModel({
+    required this.uuid,
+    required this.title,
+    required this.categoryUuid,
+  });
 
   Map<String, dynamic> toMap() => {
-    'id': id,
+    'uuid': uuid,
     'title': title,
-    'content': content,
+    'category_uuid': categoryUuid,
   };
 
   static const String tableName = 'note';
 
   static String get createTable => '''
-    CREATE TABLE $tableName (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      content TEXT NOT NULL
-    )
-  ''';
+  CREATE TABLE $tableName (
+    uuid TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    category_uuid TEXT NOT NULL,
+    FOREIGN KEY (category_uuid) REFERENCES category (uuid) ON DELETE CASCADE
+  )
+''';
 }

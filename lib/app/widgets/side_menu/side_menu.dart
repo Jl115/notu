@@ -7,11 +7,18 @@ import 'package:notu/app/widgets/side_menu/widgets/side_menu_toggle.dart';
 import 'package:notu/app/widgets/side_menu/side_menu_hamburger_mode.dart';
 
 class SideMenu extends StatelessWidget {
-  final List<Widget> items;
+  final List<Widget>? topItems;
+  final List<Widget> bottomItems;
   final SideMenuStyle? style;
   final bool? showToggle;
 
-  const SideMenu({super.key, required this.items, this.style, this.showToggle});
+  const SideMenu({
+    super.key,
+    required this.bottomItems,
+    this.topItems,
+    this.style,
+    this.showToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +26,8 @@ class SideMenu extends StatelessWidget {
     final displayMode = controller.displayMode;
     final SideMenuStyle sideMenuStyle = style ?? SideMenuStyle();
 
-    if (displayMode == SideMenuDisplayMode.hamburger) {
-      return SideMenuHamburgerWidget(items: items);
+    if (displayMode == SideMenuDisplayMode.hamburger && topItems != null) {
+      return SideMenuHamburgerWidget(items: topItems!);
     }
 
     final double width = switch (displayMode) {
@@ -54,9 +61,16 @@ class SideMenu extends StatelessWidget {
                   toggleColor: sideMenuStyle.toggleColor,
                   onTap: controller.toggleDisplayMode,
                 ),
-              Expanded(
-                child: ListView(padding: EdgeInsets.zero, children: items),
-              ),
+              if (topItems != null)
+                Expanded(
+                  flex: 2,
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: topItems!,
+                  ),
+                ),
+              if (topItems == null) Expanded(flex: 2, child: SizedBox.shrink()),
+              SizedBox(height: 120, child: Column(children: bottomItems)),
             ],
           ),
         ),

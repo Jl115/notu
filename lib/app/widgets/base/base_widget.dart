@@ -21,7 +21,7 @@ class BaseWidget extends StatelessWidget {
             selectedTitleTextStyle: const TextStyle(color: Colors.white),
             unselectedTitleTextStyle: const TextStyle(color: Colors.black),
           ),
-          items: [
+          bottomItems: [
             SideMenuItem(
               index: 0,
               title: 'Home',

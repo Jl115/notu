@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notu/app/widgets/base/base_widget.dart';
 import 'package:notu/core/utils/routes.dart';
 
 class MainApp extends StatelessWidget {
@@ -6,10 +7,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: AppRoutes.generateRoute,
-      initialRoute: AppRoutes.home,
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: BaseWidget());
   }
 }

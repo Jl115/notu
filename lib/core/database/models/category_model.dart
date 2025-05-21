@@ -18,7 +18,7 @@ class CategoryModel {
       uuid TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       parent_uuid TEXT,
-      FOREIGN KEY (parent_uuid) REFERENCES category (uuid) ON DELETE CASCADE
-    )
+      FOREIGN KEY (parent_uuid) REFERENCES category(uuid) ON DELETE CASCADE
+    );
   ''';
 }

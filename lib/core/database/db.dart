@@ -1,3 +1,4 @@
+import 'package:notu/app/entity/note/whiteboard_text_block.dart';
 import 'package:path/path.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite_common/sqflite.dart'; // to access databaseFactory
@@ -35,8 +36,8 @@ class AppDatabase {
           await db.execute('PRAGMA foreign_keys = ON');
           await db.execute(CategoryModel.createTable);
           await db.execute(NoteModel.createTable);
-          await db.execute(TextBlockModel.createTable);
-          await db.execute(WhiteboardTextBlockModel.createTable);
+          await db.execute(NoteTextBlockModel.createTable);
+          await db.execute(WhiteboardTextModel.createTable);
           await db.execute(WhiteboardBlockModel.createTable);
           //* SEEDERS
         },

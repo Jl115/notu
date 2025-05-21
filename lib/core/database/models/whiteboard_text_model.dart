@@ -1,40 +1,34 @@
-class WhiteboardTextBlockModel {
-  final String uuid;
-  final String noteUuid; // Reference to the parent note
-  final String textBlockUuid; // Reference to TextBlockModel
-  final double posX; // Position on the whiteboard (example)
-  final double posY; // Position on the whiteboard (example)
-  // Add more fields for size, rotation, etc. as needed
+import 'dart:convert';
 
-  WhiteboardTextBlockModel({
+class WhiteboardTextModel {
+  final String uuid;
+  final String whiteboardBlockUuid; // FK to WhiteboardBlockModel
+  final String text;
+  final Map<String, dynamic>? properties;
+
+  WhiteboardTextModel({
     required this.uuid,
-    required this.noteUuid,
-    required this.textBlockUuid,
-    required this.posX,
-    required this.posY,
-    // add more
+    required this.whiteboardBlockUuid,
+    required this.text,
+    this.properties,
   });
 
   Map<String, dynamic> toMap() => {
     'uuid': uuid,
-    'note_uuid': noteUuid,
-    'text_block_uuid': textBlockUuid,
-    'pos_x': posX,
-    'pos_y': posY,
-    // add more
+    'whiteboard_block_uuid': whiteboardBlockUuid,
+    'text': text,
+    'properties': properties != null ? jsonEncode(properties) : null,
   };
 
-  static const String tableName = 'whiteboard_text_block';
+  static const String tableName = 'whiteboard_text';
 
   static String get createTable => '''
-  CREATE TABLE $tableName (
-    uuid TEXT PRIMARY KEY,
-    note_uuid TEXT NOT NULL,
-    text_block_uuid TEXT NOT NULL,
-    pos_x REAL NOT NULL,
-    pos_y REAL NOT NULL,
-    FOREIGN KEY (note_uuid) REFERENCES note (uuid) ON DELETE CASCADE,
-    FOREIGN KEY (text_block_uuid) REFERENCES text_block (uuid) ON DELETE CASCADE
-  )
-''';
+    CREATE TABLE $tableName (
+      uuid TEXT PRIMARY KEY,
+      whiteboard_block_uuid TEXT NOT NULL,
+      text TEXT NOT NULL,
+      properties TEXT,
+      FOREIGN KEY (whiteboard_block_uuid) REFERENCES whiteboard_block(uuid) ON DELETE CASCADE
+    );
+  ''';
 }
